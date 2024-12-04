@@ -3,6 +3,13 @@ import 'package:movie_app/core/colors_manager.dart';
 
 class AppTheme {
   static final ThemeData light = ThemeData(
-  scaffoldBackgroundColor: ColorsManager.blackAcc
+  scaffoldBackgroundColor: ColorsManager.blackAcc,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        unselectedItemColor: Colors.white,
+        selectedItemColor: ColorsManager.selectedItem,
+        showUnselectedLabels: true,
+
+
+  )
   );
 }
