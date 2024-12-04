@@ -15,9 +15,10 @@ class MyApp extends StatelessWidget {
       designSize:  const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
+
       builder: (context,child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-       debugShowCheckedModeBanner: false,
       routes: {
         RoutesManager.splashScreen : (_) => SplashScreen(),
         RoutesManager.homeScreen : (_) => Home(),
