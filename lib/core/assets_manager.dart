@@ -20,4 +20,5 @@ class AssetsManager {
   static const String tvMovieFilm = 'assets/images/tv_movie.png';
   static const String warFilm = 'assets/images/war.png';
   static const String westernFilm = 'assets/images/western.png';
+  static const String iconBookmark = 'assets/images/bookmark_icon.png';
 }
