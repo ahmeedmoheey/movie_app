@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/core/colors_manager.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/HomeScreen.dart';
 import 'package:movie_app/presentation/screens/home/tabs/search/SearchTab.dart';
-import 'package:movie_app/presentation/screens/home/tabs/watch_list/WatchList.dart';
-
-import 'tabs/Browse/Browse.dart';
+import 'package:movie_app/presentation/screens/home/tabs/watch_list/watch_list.dart';
+import 'tabs/Browse/browse.dart';
 
 class Home extends StatefulWidget {
-   Home({super.key});
+  Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -25,23 +24,31 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Theme.of(context).primaryColor),
+      body: tabs[selectedIndex],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: ColorsManager.blackAcc,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.7),
+              blurRadius: 15,
+              offset: const Offset(0, -9),
+            ),
+          ],
+        ),
         child: BottomNavigationBar(
-
           onTap: (index) {
-            selectedIndex = index;
             setState(() {
+              selectedIndex = index;
             });
           },
           currentIndex: selectedIndex,
 
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'HOME',
-
-               ),
+              icon: Icon(Icons.home),
+              label: 'HOME',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: 'SEARCH',
@@ -57,9 +64,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: tabs[selectedIndex],
-
-
     );
   }
 }

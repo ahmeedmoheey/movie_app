@@ -6,6 +6,8 @@ class AppTheme {
     primaryColor: ColorsManager.bottomNavBar,
   scaffoldBackgroundColor: ColorsManager.blackAcc,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.transparent,
         selectedIconTheme: IconThemeData(size: 30),
         unselectedItemColor: Colors.white,
         selectedItemColor: ColorsManager.selectedItem,

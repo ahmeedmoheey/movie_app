@@ -10,25 +10,26 @@ List<CategoryDM> categoryList = CategoryDM.getAllCategories();
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: REdgeInsets.symmetric(vertical: 50, horizontal: 27),
+      padding: REdgeInsets.symmetric( horizontal: 27),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 50.h,),
           Text(
             'Browse Category ',
-            style: AppStyles.browserTitle,
+            style: AppStyles.screenTitle,
           ),
+          SizedBox(height: 5.h,),
+
           Expanded(
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:2 ,
-                crossAxisSpacing: 40,
-                mainAxisSpacing: 40 ,),
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 20 ,),
                 itemCount: categoryList.length,
                 itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-
-                  },
+                  onTap: () {},
                 child: BrowserCategories(categoryDM: categoryList[index], index: index) ,
                 ),),
           )
