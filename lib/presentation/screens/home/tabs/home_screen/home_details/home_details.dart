@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/assets_manager.dart';
 
@@ -9,7 +10,7 @@ class HomeDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
           size: 35
         ),
@@ -18,21 +19,21 @@ class HomeDetails extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Top Image Section
             Stack(
               children: [
                 Container(
-                  height: 200,
-                  decoration: BoxDecoration(
+                  width: 412.w,
+                  height: 217.h,
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(AssetsManager.dramaFilm), // Replace with your background image
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                Center(
                   child: IconButton(
                     icon: const Icon(
                       Icons.play_circle,
@@ -42,6 +43,7 @@ class HomeDetails extends StatelessWidget {
                     onPressed: () {},
                   ),
                 ),
+
               ],
             ),
             Padding(
@@ -50,8 +52,8 @@ class HomeDetails extends StatelessWidget {
                 children: [
                   // Poster Image
                   Container(
-                    height: 120,
-                    width: 80,
+                    height: 120.h,
+                    width: 80.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image:  const DecorationImage(
@@ -62,10 +64,10 @@ class HomeDetails extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   // Text Details
-                  Expanded(
+                  const Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Dora and the Lost City of Gold',
                           style: TextStyle(
@@ -100,7 +102,7 @@ class HomeDetails extends StatelessWidget {
             ),
             // Action Buttons
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding:  REdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
@@ -111,20 +113,20 @@ class HomeDetails extends StatelessWidget {
                       backgroundColor: Colors.black54,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
-                    child: const Text('Action'),
+                    child: const Text('Action'),// ????????
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+             SizedBox(height: 16.h),
             // Rating Row
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: const [
+             Padding(
+              padding: REdgeInsets.symmetric(horizontal: 16.0),
+              child: const Row(
+                children: [
                   Icon(
                     Icons.star,
                     color: Colors.amber,
@@ -140,10 +142,10 @@ class HomeDetails extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+             SizedBox(height: 24.h),
             // More Like This Section
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding:  REdgeInsets.symmetric(horizontal: 16.0),
               child: const Text(
                 'More Like This',
                 style: TextStyle(
@@ -153,67 +155,106 @@ class HomeDetails extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 13,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 140,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            image: const DecorationImage(
-                              image: AssetImage(AssetsManager.crimeFilm), // Replace with your movie poster
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'War',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: const [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 14,
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              '7.7',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 24),
+             SizedBox(height: 16.h),
+            buildMoreLikeThis(),
+             SizedBox(height: 24.h),
           ],
         ),
       ),
-      backgroundColor: Colors.black,
+
     );
 
   }
+  Widget buildMoreLikeThis() {
+    return SizedBox(
+      height: 250.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 8.w).copyWith(bottom: 16.h), // مسافة إضافية من الأسفل
+            width: 150.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.grey[900],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius:  BorderRadius.only(
+                    topLeft: Radius.circular(12.r),
+                    topRight: Radius.circular(12.r),
+                  ),
+                  child: Image.asset(AssetsManager.crimeFilm,
+                    height: 150.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Padding(
+                  padding: REdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 16.sp,
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            "7.7",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 60.w),
+                          InkWell(
+                              onTap: () {
+
+                              },
+                              child:
+                              const Icon(Icons.bookmark_border_outlined,color: Colors.white,))
+                        ],
+                      ),
+                      SizedBox(height: 4.h),
+
+                      Text(
+                        "Film Title",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 4.h),
+
+                      Text(
+                        "2018 R 1h 59m",
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 12.sp,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
 }
