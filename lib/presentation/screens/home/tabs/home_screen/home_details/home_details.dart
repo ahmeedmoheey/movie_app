@@ -64,7 +64,7 @@ class HomeDetails extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   // Text Details
-                  const Expanded(
+                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -76,7 +76,7 @@ class HomeDetails extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: 8.h),
                         Text(
                           '2019  PG-13  2h 7m',
                           style: TextStyle(
@@ -84,7 +84,7 @@ class HomeDetails extends StatelessWidget {
                             color: Colors.white70,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         Text(
                           'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
                           style: TextStyle(
@@ -93,6 +93,23 @@ class HomeDetails extends StatelessWidget {
                           ),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 10.h,),
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              '7.7',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -123,25 +140,7 @@ class HomeDetails extends StatelessWidget {
             ),
              SizedBox(height: 16.h),
             // Rating Row
-             Padding(
-              padding: REdgeInsets.symmetric(horizontal: 16.0),
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    '7.7',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
              SizedBox(height: 24.h),
             // More Like This Section
             Padding(
