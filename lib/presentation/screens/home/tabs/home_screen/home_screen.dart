@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/core/routes_manager.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,18 +16,23 @@ class HomeScreen extends StatelessWidget {
           children: [
             SizedBox(height: 50.h),
 
-            CarouselSlider.builder(
-              itemBuilder: (context, index, realIndex) => buildSliderItem(
-                  title: "Film Title ",
-                  releaseDate: "2024",
-                  imageUrl:
-                      'https://compote.slate.com/images/22ce4663-4205-4345-8489-bc914da1f272.jpeg?crop=1560%2C1040%2Cx0%2Cy0'),
-              itemCount: 5,
-              options: CarouselOptions(
-                height: 200.h,
-                autoPlay: true,
-                enlargeCenterPage: true,
-                viewportFraction: 1,
+            InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeDetails()));
+               },
+              child: CarouselSlider.builder(
+                itemBuilder: (context, index, realIndex) => buildSliderItem(
+                    title: "Film Title ",
+                    releaseDate: "2024",
+                    imageUrl:
+                        'https://compote.slate.com/images/22ce4663-4205-4345-8489-bc914da1f272.jpeg?crop=1560%2C1040%2Cx0%2Cy0'),
+                itemCount: 5,
+                options: CarouselOptions(
+                  height: 200.h,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 1,
+                ),
               ),
             ),
 
@@ -45,7 +52,6 @@ class HomeScreen extends StatelessWidget {
 
             SizedBox(height: 30.h),
 
-            //  Recommended
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Text('Recommended',
@@ -69,11 +75,10 @@ class HomeScreen extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[900], // لون الخلفية الرئيسي
+        color: Colors.grey[900],
       ),
       child: Stack(
         children: [
-          //ألصوره الرئيسيه
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -91,7 +96,7 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Center(
                 child: Icon(
-                  Icons.play_circle_fill, // علامة تشغيل الفيديو
+                  Icons.play_circle_fill, //
                   color: Colors.white,
                   size: 50.sp,
                 ),
@@ -99,7 +104,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          // الصورة المصغرة
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -121,7 +125,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          //  (العنوان + التاريخ) على اليمين
           Positioned(
             right: 16.w,
             bottom: 10.h,
@@ -203,7 +206,6 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 ClipRRect(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
@@ -221,7 +223,6 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Row(
                         children: [
                           Icon(

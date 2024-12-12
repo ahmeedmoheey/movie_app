@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/colors_manager.dart';
-import 'package:movie_app/presentation/screens/home/tabs/home_screen/HomeScreen.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_screen.dart';
 import 'package:movie_app/presentation/screens/home/tabs/search/SearchTab.dart';
 import 'package:movie_app/presentation/screens/home/tabs/watch_list/watch_list.dart';
 import 'tabs/Browse/browse.dart';
