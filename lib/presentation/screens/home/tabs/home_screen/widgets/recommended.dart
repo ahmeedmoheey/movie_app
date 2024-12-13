@@ -21,7 +21,7 @@ class Recommended extends StatelessWidget {
 
           return InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(movie: snapshot.data[index]),));
 
             },
             child: Container(

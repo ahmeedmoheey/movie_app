@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/assets_manager.dart';
+import 'package:movie_app/core/constant_manager.dart';
+
+import '../../../../../../data/api/model/movie.dart';
 
 class HomeDetails extends StatelessWidget {
-  const HomeDetails({super.key});
+  const HomeDetails({super.key,  this.movie, });
+  final Movie? movie;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,7 @@ class HomeDetails extends StatelessWidget {
           color: Colors.white,
           size: 35
         ),
-        title:  Text('Dora and the Lost City of Gold',style: AppStyles.screenTitle,),
+        title:  Text(movie!.title,style: AppStyles.screenTitle,),
 
       ),
       body: SingleChildScrollView(
@@ -28,9 +32,9 @@ class HomeDetails extends StatelessWidget {
                 Container(
                   width: 412.w,
                   height: 217.h,
-                  decoration: const BoxDecoration(
+                  decoration:  BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(AssetsManager.dramaFilm), // Replace with your background image
+                      image: NetworkImage('${ConstantManager.imagePath}${movie!.backdropPath}'), // Replace with your background image
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -56,8 +60,8 @@ class HomeDetails extends StatelessWidget {
                     width: 80.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      image:  const DecorationImage(
-                        image: AssetImage(AssetsManager.dramaFilm), // Replace with your poster image
+                      image:   DecorationImage(
+                        image: NetworkImage('${ConstantManager.imagePath}${movie!.posterPath}'), // Replace with your background image
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -69,7 +73,7 @@ class HomeDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Dora and the Lost City of Gold',
+                          movie!.title,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -78,7 +82,7 @@ class HomeDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 8.h),
                         Text(
-                          '2019  PG-13  2h 7m',
+                          movie!.releaseDate,
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white70,
@@ -86,16 +90,16 @@ class HomeDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 16.h),
                         Text(
-                          'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
+                          movie!.overview,
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.white70,
                           ),
-                          maxLines: 3,
+                          maxLines: 8,
                           overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 10.h,),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.star,
@@ -103,7 +107,7 @@ class HomeDetails extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              '7.7',
+                              '${movie!.voteAverage.toStringAsFixed(1)}/10',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

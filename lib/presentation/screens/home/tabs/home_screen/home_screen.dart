@@ -11,8 +11,7 @@ import 'package:movie_app/presentation/screens/home/tabs/home_screen/widgets/top
 import '../../../../../data/api/model/movie.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+  const HomeScreen({super.key, });
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -37,11 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(height: 50.h),
 
-            InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomeDetails()));
-              },
-              child: FutureBuilder(
+             FutureBuilder(
                 future: popularMovies,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -55,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-            ),
+
 
 
             SizedBox(height: 30.h),
