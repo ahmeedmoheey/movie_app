@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 20.h),
             FutureBuilder(
-              future: popularMovies,
+              future: recommendedMovies,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(

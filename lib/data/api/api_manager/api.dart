@@ -32,7 +32,7 @@ class Api {
   }
 
 
-  static const _recommendedUrl ='https://api.themoviedb.org/3/movie/top_rated ?api_key=${ConstantManager.apiKey}';
+  static const _recommendedUrl ='https://api.themoviedb.org/3/movie/top_rated?api_key=${ConstantManager.apiKey}';
   Future<List<Movie>> recommendedMovies() async{
     final response = await http.get(Uri.parse(_recommendedUrl));
     if(response.statusCode == 200){

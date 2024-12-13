@@ -27,7 +27,7 @@ class Movie {
       posterPath: json["poster_path"],
       releaseDate: json["release_date"],
       title: json["title"],
-      voteAverage: json["vote_average"],
+      voteAverage: json["vote_average"] ,
     );
   }
 }
