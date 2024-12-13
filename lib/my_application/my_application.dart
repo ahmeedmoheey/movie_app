@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_theme/app_theme.dart';
+import 'package:movie_app/presentation/screens/home/tabs/Browse/browser_details/browser_details.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
 
 import '../core/routes_manager.dart';
 import '../presentation/screens/home/home.dart';
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         RoutesManager.splashScreen : (_) => SplashScreen(),
         RoutesManager.homeScreen : (_) => Home(),
+        RoutesManager.homeDetails : (_) => HomeDetails(),
       },
       initialRoute:RoutesManager.splashScreen ,
 
