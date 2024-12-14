@@ -34,7 +34,6 @@ class Api {
 
   }
 
-
   Future<List<Movie>> recommendedMovies() async{
     final response = await http.get(Uri.parse(_recommendedUrl));
     if(response.statusCode == 200){
@@ -45,6 +44,7 @@ class Api {
     }
 
   }
+
   Future<List<Movie>> similarMovies(int movieId) async {
     final _similarUrl = 'https://api.themoviedb.org/3/movie/$movieId/similar?api_key=${ConstantManager.apiKey}';
 
@@ -58,6 +58,19 @@ class Api {
     } else {
       throw Exception('Something went wrong');
     }
+  }
+
+  Future<List<Movie>> searchMovies(String query) async{
+    final _searchUrl ='https://api.themoviedb.org/3/search/movie?api_key=${ConstantManager.apiKey}&query=$query';
+
+    final response = await http.get(Uri.parse(_searchUrl));
+    if(response.statusCode == 200){
+      final decodedData = json.decode(response.body)['results'] as List;
+      return decodedData.map((movie) => Movie.fromJson(movie)).toList();
+    }else{
+      throw Exception('something went wrong');
+    }
+
   }
 
 }
