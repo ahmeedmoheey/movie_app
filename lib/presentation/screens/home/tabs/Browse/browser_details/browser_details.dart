@@ -61,7 +61,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10.w,
                   mainAxisSpacing: 12.h,
-                  childAspectRatio: 0.65, // التحكم بنسبة عرض/طول الكارد
+                  childAspectRatio: 0.65,
                 ),
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
@@ -91,7 +91,6 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // صورة الفيلم
               Expanded(
                 child: Image.network(
                   '${ConstantManager.imagePath}${movie.posterPath}',
@@ -99,7 +98,6 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                   errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
                 ),
               ),
-              // عنوان الفيلم
               Padding(
                 padding: EdgeInsets.all(8.w),
                 child: Text(

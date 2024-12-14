@@ -73,17 +73,13 @@ class Api {
     }
 
   }
+
   Future<List<Movie>> getMoviesByCategory(String categoryId) async {
     final response = await http.get(
       Uri.parse('https://api.themoviedb.org/3/discover/movie?api_key=${ConstantManager.apiKey}&with_genres=$categoryId'),
     );
-
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}'); // طباعة البيانات
-
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
-      print('Movies data: $data'); // طباعة النتائج المسترجعة
       return data.map((json) => Movie.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load movies');
