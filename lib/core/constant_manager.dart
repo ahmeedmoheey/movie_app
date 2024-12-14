@@ -1,6 +1,7 @@
 class ConstantManager {
   static const String apiKey = '65eea674943154eeac9f970a4a249a66';
   static const String imagePath = 'https://image.tmdb.org/t/p/w500';
+  static const String defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930';
   static const String actionId = 'Action';
   static const String adventureId = 'Adventure';
   static const String animationId = 'Animation';

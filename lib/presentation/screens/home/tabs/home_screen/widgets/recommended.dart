@@ -6,6 +6,7 @@ import '../home_details/home_details.dart';
 
 class Recommended extends StatelessWidget {
   const Recommended({super.key, required this.snapshot});
+
   final AsyncSnapshot snapshot;
 
   @override
@@ -13,7 +14,6 @@ class Recommended extends StatelessWidget {
     return SizedBox(
       height: 250.h,
       child: ListView.builder(
-
         scrollDirection: Axis.horizontal,
         itemCount: 10,
         itemBuilder: (context, index) {
@@ -21,11 +21,16 @@ class Recommended extends StatelessWidget {
 
           return InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(movie: snapshot.data[index]),));
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        HomeDetails(movie: snapshot.data[index]),
+                  ));
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.w).copyWith(bottom: 16.h), // مسافة إضافية من الأسفل
+              margin: EdgeInsets.symmetric(horizontal: 8.w)
+                  .copyWith(bottom: 16.h), // مسافة إضافية من الأسفل
               width: 150.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
@@ -40,10 +45,11 @@ class Recommended extends StatelessWidget {
                       topRight: Radius.circular(12),
                     ),
                     child: Image.network(
-                      '${ConstantManager.imagePath}${movie.posterPath}', // رابط الصورة
+                      '${ConstantManager.imagePath}${movie.posterPath}',
+                      // رابط الصورة
                       height: 150.h,
                       width: double.infinity,
-                      fit: BoxFit. fill,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   Padding(
@@ -69,15 +75,14 @@ class Recommended extends StatelessWidget {
                             ),
                             SizedBox(width: 40.w),
                             InkWell(
-                                onTap: () {
-
-                                },
-                                child:
-                                Icon(Icons.bookmark_border_outlined,color: Colors.white,))
+                                onTap: () {},
+                                child: Icon(
+                                  Icons.bookmark_border_outlined,
+                                  color: Colors.white,
+                                ))
                           ],
                         ),
                         SizedBox(height: 4.h),
-
                         Text(
                           movie.title,
                           style: TextStyle(
@@ -89,7 +94,6 @@ class Recommended extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 4.h),
-
                         Text(
                           movie.releaseDate,
                           style: TextStyle(
@@ -108,6 +112,7 @@ class Recommended extends StatelessWidget {
           );
         },
       ),
-    );;
+    );
+    ;
   }
 }

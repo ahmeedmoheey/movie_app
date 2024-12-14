@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
@@ -23,7 +22,6 @@ class NewReleases extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 7.h),
             child: InkWell(
               onTap: () {
-                // تمرير المتغير `movie` إلى صفحة التفاصيل
                 Navigator.push(
                   context,
                   MaterialPageRoute(
