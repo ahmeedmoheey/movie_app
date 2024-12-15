@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/assets_manager.dart';
 import 'package:movie_app/core/colors_manager.dart';
+import 'package:movie_app/data_model/firebase/firebase.dart';
 
 import '../../../../../config/app_styles/app_styles.dart';
 
@@ -48,7 +50,6 @@ class WatchList extends StatelessWidget {
             height: 90.h,
             child: Stack(
               children: [
-                // صورة الفيلم
                 Positioned.fill(
                   child: Image(
                     image: AssetImage(AssetsManager.romanceFilm),
@@ -56,17 +57,16 @@ class WatchList extends StatelessWidget {
                   ),
                 ),
 
-                InkWell(
-                  onTap: () {
-
-                  },
-                  child: Stack(
-                    children: [
-                      Image(image: AssetImage(AssetsManager.iconBookmark),width: 27.w,height: 36,),
-                      Icon(Icons.check,color: Colors.white,size: 30,)
-                    ],
-                  )
-                  ),
+                Stack(
+                  children: [
+                    Image(image: AssetImage(AssetsManager.iconBookmark),width: 27.w,height: 36,),
+                    InkWell(
+                        onTap: () {
+                          addMovieToFireStore ();
+                        },
+                        child: Icon(Icons.check,color: Colors.white,size: 30,))
+                  ],
+                ),
               ],
             ),
           ),
@@ -90,6 +90,16 @@ class WatchList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+
+
+  addMovieToFireStore () async{
+ CollectionReference collectionReference = FirebaseFirestore.instance.collection('movie');
+ DocumentReference documentReference= collectionReference.doc();
+MovieDM movie = MovieDM(id: documentReference.id, title: "",  isDone: false);
+  await documentReference.set(movie.toFireStore()).then((_) {},).onError((error, stackTrace) {} ,)
+      .timeout(Duration(milliseconds: 500),onTimeout: (){},);
   }
 
 
