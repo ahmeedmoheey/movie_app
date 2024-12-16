@@ -147,7 +147,7 @@ class _HomeDetailsState extends State<HomeDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
-                  4,
+                  3,
                       (index) => ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(

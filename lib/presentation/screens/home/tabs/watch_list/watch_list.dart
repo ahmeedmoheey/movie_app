@@ -1,109 +1,74 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/assets_manager.dart';
-import 'package:movie_app/core/colors_manager.dart';
-import 'package:movie_app/data_model/firebase/firebase.dart';
+import 'package:movie_app/core/routes_manager.dart';
+import 'package:movie_app/data/api/model/movie.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
 
-import '../../../../../config/app_styles/app_styles.dart';
+import '../../../../../../core/constant_manager.dart';
+import '../../../../../../data_model/firebase/firebase.dart';
 
 class WatchList extends StatelessWidget {
   const WatchList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: REdgeInsets.symmetric(horizontal: 27),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 40.h,
-            ),
-            Text(
-              'Watchlist',
-              style: AppStyles.screenTitle,
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Expanded(
-                child: ListView.separated(
-              separatorBuilder: (context, index) => Divider(
-                color: Colors.grey,
-                height: 40.h,
-              ),
-              itemCount: 10,
-              itemBuilder: (context, index) => buildWatchList(),
-            ))
-          ],
-        ));
-  }
+    return Scaffold(
+      appBar: AppBar(
+        title: const  Text('Watchlist'),
+        backgroundColor: Colors.black,
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('watchlist').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return  const Center(child: CircularProgressIndicator());
+          }
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(child: Image.asset(AssetsManager.searchNoMoviesFound));
+          }
+          final movies = snapshot.data!.docs;
 
-  buildWatchList() {
-    return InkWell(
-      onTap: () {},
-      child: Row(
-        children: [
-          Container(
-            width: 140.w,
-            height: 90.h,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Image(
-                    image: AssetImage(AssetsManager.romanceFilm),
-                    fit: BoxFit.cover,
-                  ),
+          return ListView.builder(
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              var movieData = movies[index].data() as Map<String, dynamic>;
+              var movie = MoviesDM.fromFireStore(movieData);
+              return ListTile(
+                contentPadding: const  EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                leading: Image.network(
+                  '${ConstantManager.imagePath}${movie.posterPath}',
+                  fit: BoxFit.cover,
+                  width: 140,
+                  height: 89,
                 ),
+                title: Text(movie.title,style: AppStyles.filmWatchListTitle.copyWith(fontSize: 15)),
+                subtitle: Text('Released: ${movie.releaseDate}',style: AppStyles.filmWatchListDescription.copyWith(fontSize: 13),),
+                trailing: IconButton(
+                  icon:   const Icon(Icons.delete),
+                  onPressed: () {
+                    deleteMovieFromWatchlist(movie.id);
+                  },
 
-                Stack(
-                  children: [
-                    Image(image: AssetImage(AssetsManager.iconBookmark),width: 27.w,height: 36,),
-                    InkWell(
-                        onTap: () {
-                          addMovieToFireStore ();
-                        },
-                        child: Icon(Icons.check,color: Colors.white,size: 30,))
-                  ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 15,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Film Title',
-                style: AppStyles.filmWatchListTitle,
-              ),
-              Text('2024', style: AppStyles.filmWatchListDescription),
-              Text(
-                'actor name , actor name',
-                style: AppStyles.filmWatchListDescription,
-              ),
-            ],
-          ),
-        ],
+                onTap: () {
+                },
+
+              );
+            },
+          );
+        },
       ),
     );
   }
 
-
-
-  addMovieToFireStore () async{
- CollectionReference collectionReference = FirebaseFirestore.instance.collection('movie');
- DocumentReference documentReference= collectionReference.doc();
-MovieDM movie = MovieDM(id: documentReference.id, title: "",  isDone: false);
-  await documentReference.set(movie.toFireStore()).then((_) {},).onError((error, stackTrace) {} ,)
-      .timeout(Duration(milliseconds: 500),onTimeout: (){},);
+  void deleteMovieFromWatchlist(String movieId) async {
+    try {
+      await FirebaseFirestore.instance.collection('watchlist').doc(movieId).delete();
+      debugPrint("Movie removed from watchlist.");
+    } catch (error) {
+      debugPrint("Failed to remove movie from watchlist: $error");
+    }
   }
-
-
-
-
-
 }

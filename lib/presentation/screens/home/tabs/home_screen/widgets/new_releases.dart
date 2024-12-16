@@ -1,13 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
 
 import '../../../../../../core/constant_manager.dart';
+import '../../../../../../data_model/firebase/firebase.dart';
 
-class NewReleases extends StatelessWidget {
+class NewReleases extends StatefulWidget {
   const NewReleases({super.key, required this.snapshot});
 
   final AsyncSnapshot snapshot;
+
+  @override
+  State<NewReleases> createState() => _NewReleasesState();
+}
+
+class _NewReleasesState extends State<NewReleases> {
+  // خريطة لتخزين حالة الحفظ لكل فيلم باستخدام معرّف الفيلم
+  Map<String, bool> savedMovies = {};
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +25,13 @@ class NewReleases extends StatelessWidget {
       height: 150.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: snapshot.data.length,
+        itemCount: widget.snapshot.data.length,
         itemBuilder: (context, index) {
-          final movie = snapshot.data[index];
+          final movie = widget.snapshot.data[index];
+
+          // الحصول على حالة الحفظ للفيلم الحالي
+          bool isSaved = savedMovies[movie.id.toString()] ?? false;
+
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 7.h),
             child: InkWell(
@@ -47,16 +61,24 @@ class NewReleases extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            // تحديث حالة الحفظ فقط لهذا الفيلم
+                            savedMovies[movie.id.toString()] = !isSaved;
+                          });
+                          addMovieToFireStore(movie);
+                        },
                         icon: Icon(
-                          Icons.bookmark_add,
-                          color: Color(0xff514F4F).withOpacity(.8),
                           size: 33,
+                          isSaved
+                              ? Icons.bookmark_added
+                              : Icons.bookmark_border_outlined,
+                          color: isSaved ? Colors.yellow : Colors.white,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
@@ -64,5 +86,30 @@ class NewReleases extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void addMovieToFireStore(dynamic movie) async {
+    try {
+      CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('watchlist');
+
+      DocumentReference documentReference =
+      collectionReference.doc(movie.id.toString());
+
+      MoviesDM movieDM = MoviesDM(
+        id: movie.id.toString(),
+        title: movie.title,
+        posterPath: movie.posterPath,
+        releaseDate: movie.releaseDate,
+        voteAverage: movie.voteAverage,
+        isDone: false,
+      );
+
+      await documentReference.set(movieDM.toFireStore());
+
+      debugPrint("Movie added to watchlist successfully.");
+    } catch (error) {
+      debugPrint("Failed to add movie to watchlist: $error");
+    }
   }
 }

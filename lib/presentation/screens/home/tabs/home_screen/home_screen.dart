@@ -113,6 +113,5 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  //    (New Releases وRecommended)
 
 }

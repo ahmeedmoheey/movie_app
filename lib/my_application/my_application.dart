@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
       routes: {
-        RoutesManager.splashScreen : (_) => SplashScreen(),
+        RoutesManager.splashScreen : (_) =>  const SplashScreen(),
         RoutesManager.homeScreen : (_) => Home(),
-        RoutesManager.homeDetails : (_) => HomeDetails(),
+        RoutesManager.homeDetails : (_) =>  HomeDetails(),
       },
       initialRoute:RoutesManager.splashScreen ,
 

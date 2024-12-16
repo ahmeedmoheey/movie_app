@@ -1,12 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../core/assets_manager.dart';
 import '../../../../../../../core/constant_manager.dart';
+import '../../../../../../../data_model/firebase/firebase.dart';
 
-class MoreLikeThis extends StatelessWidget {
+class MoreLikeThis extends StatefulWidget {
   const MoreLikeThis({super.key, required this.snapshot});
   final AsyncSnapshot snapshot;
+
+  @override
+  _MoreLikeThisState createState() => _MoreLikeThisState();
+}
+
+class _MoreLikeThisState extends State<MoreLikeThis> {
+  Map<String, bool> savedMovies = {};
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +23,12 @@ class MoreLikeThis extends StatelessWidget {
       height: 250.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: snapshot.data.length ,
+        itemCount: widget.snapshot.data.length,
         itemBuilder: (context, index) {
-          final movie = snapshot.data[index];
+          final movie = widget.snapshot.data[index];
+
+          bool isSaved = savedMovies[movie.id.toString()] ?? false;
+
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 8.w).copyWith(bottom: 16.h),
             width: 150.w,
@@ -32,9 +44,10 @@ class MoreLikeThis extends StatelessWidget {
                     topLeft: Radius.circular(12.r),
                     topRight: Radius.circular(12.r),
                   ),
-                  child:
-                       Image.network( movie.posterPath != null && movie.posterPath.isNotEmpty?
-                    '${ConstantManager.imagePath}${movie.posterPath}': '${ConstantManager.defaultImage}',
+                  child: Image.network(
+                    movie.posterPath != null && movie.posterPath.isNotEmpty
+                        ? '${ConstantManager.imagePath}${movie.posterPath}'
+                        : '${ConstantManager.defaultImage}',
                     height: 150.h,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -63,11 +76,19 @@ class MoreLikeThis extends StatelessWidget {
                           ),
                           SizedBox(width: 40.w),
                           InkWell(
-                              onTap: () {},
-                              child: const Icon(
-                                Icons.bookmark_border_outlined,
-                                color: Colors.white,
-                              ))
+                            onTap: () {
+                              setState(() {
+                                savedMovies[movie.id.toString()] = !isSaved;
+                              });
+                              addMovieToFireStore(movie);
+                            },
+                            child: Icon(
+                              isSaved
+                                  ? Icons.bookmark_added
+                                  : Icons.bookmark_border_outlined,
+                              color: isSaved ? Colors.yellow : Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 4.h),
@@ -99,6 +120,31 @@ class MoreLikeThis extends StatelessWidget {
           );
         },
       ),
-    );;
+    );
+  }
+
+  void addMovieToFireStore(dynamic movie) async {
+    try {
+      CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('watchlist');
+
+      DocumentReference documentReference =
+      collectionReference.doc(movie.id.toString());
+
+      MoviesDM movieDM = MoviesDM(
+        id: movie.id.toString(),
+        title: movie.title,
+        posterPath: movie.posterPath,
+        releaseDate: movie.releaseDate,
+        voteAverage: movie.voteAverage,
+        isDone: false,
+      );
+
+      await documentReference.set(movieDM.toFireStore());
+
+      debugPrint("Movie added to watchlist successfully.");
+    } catch (error) {
+      debugPrint("Failed to add movie to watchlist: $error");
+    }
   }
 }

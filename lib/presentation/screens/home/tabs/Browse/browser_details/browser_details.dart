@@ -76,7 +76,6 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
     );
   }
 
-  // تصميم كارد الفيلم
   Widget _buildMovieCard(Movie movie) {
     return GestureDetector(
       onTap: () {

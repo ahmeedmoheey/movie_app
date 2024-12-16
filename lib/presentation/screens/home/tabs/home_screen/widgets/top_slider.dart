@@ -51,7 +51,6 @@ class TopSlider extends StatelessWidget {
                   ),
                 ),
 
-                // الصورة المصغرة (على اليسار)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
