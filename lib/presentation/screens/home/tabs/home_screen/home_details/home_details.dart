@@ -2,20 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/assets_manager.dart';
+import 'package:movie_app/core/constant_manager.dart';
+import 'package:movie_app/data/api/api_manager/api.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/widget/more_like_this.dart';
+import '../../../../../../data/api/model/movie.dart';
 
-class HomeDetails extends StatelessWidget {
-  const HomeDetails({super.key});
+class HomeDetails extends StatefulWidget {
+  const HomeDetails({
+    super.key,
+    this.movie,
+  });
+
+  final Movie? movie;
+
+  @override
+  State<HomeDetails> createState() => _HomeDetailsState();
+}
+
+class _HomeDetailsState extends State<HomeDetails> {
+  late Future<List<Movie>> similarMovies;
+
+  @override
+  void initState() {
+    super.initState();
+      similarMovies = Api().similarMovies(widget.movie!.id);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-          size: 35
+        iconTheme: const IconThemeData(color: Colors.white, size: 35),
+        title: Text(
+          widget.movie!.title,
+          style: AppStyles.screenTitle,
         ),
-        title:  Text('Dora and the Lost City of Gold',style: AppStyles.screenTitle,),
-
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -28,9 +49,10 @@ class HomeDetails extends StatelessWidget {
                 Container(
                   width: 412.w,
                   height: 217.h,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(AssetsManager.dramaFilm), // Replace with your background image
+                      image: NetworkImage(
+                          '${ConstantManager.imagePath}${widget.movie?.backdropPath ?? ''}'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -43,7 +65,6 @@ class HomeDetails extends StatelessWidget {
                     onPressed: () {},
                   ),
                 ),
-
               ],
             ),
             Padding(
@@ -56,20 +77,21 @@ class HomeDetails extends StatelessWidget {
                     width: 80.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      image:  const DecorationImage(
-                        image: AssetImage(AssetsManager.dramaFilm), // Replace with your poster image
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            '${ConstantManager.imagePath}${widget.movie?.posterPath ?? ''}'),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   const SizedBox(width: 16),
                   // Text Details
-                   Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Dora and the Lost City of Gold',
+                          widget.movie?.title ?? 'No Title',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -78,7 +100,7 @@ class HomeDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 8.h),
                         Text(
-                          '2019  PG-13  2h 7m',
+                          widget.movie?.releaseDate ?? 'No Release Date',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white70,
@@ -86,16 +108,18 @@ class HomeDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 16.h),
                         Text(
-                          'Having spent most of her life exploring the jungle, nothing could prepare Dora for her most dangerous adventure yet — high school.',
+                          widget.movie?.overview ?? 'No Overview',
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.white70,
                           ),
-                          maxLines: 3,
+                          maxLines: 8,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: 10.h,),
-                        const Row(
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Row(
                           children: [
                             Icon(
                               Icons.star,
@@ -103,7 +127,7 @@ class HomeDetails extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              '7.7',
+                              '${widget.movie?.voteAverage.toStringAsFixed(1) ?? '0'}/10',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -119,11 +143,11 @@ class HomeDetails extends StatelessWidget {
             ),
             // Action Buttons
             Padding(
-              padding:  REdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
-                  4,
+                  3,
                       (index) => ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -133,18 +157,17 @@ class HomeDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
-                    child: const Text('Action'),// ????????
+                    child: const Text('Action'),
                   ),
                 ),
               ),
             ),
-             SizedBox(height: 16.h),
+            SizedBox(height: 16.h),
             // Rating Row
-
-             SizedBox(height: 24.h),
+            SizedBox(height: 24.h),
             // More Like This Section
             Padding(
-              padding:  REdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: const Text(
                 'More Like This',
                 style: TextStyle(
@@ -154,104 +177,24 @@ class HomeDetails extends StatelessWidget {
                 ),
               ),
             ),
-             SizedBox(height: 16.h),
-            buildMoreLikeThis(),
-             SizedBox(height: 24.h),
+            SizedBox(height: 16.h),
+            FutureBuilder(
+              future: similarMovies,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.white)),
+                  );
+                } else if (snapshot.hasData) {
+                  return MoreLikeThis(snapshot: snapshot);
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+            SizedBox(height: 24.h),
           ],
         ),
-      ),
-
-    );
-
-  }
-  Widget buildMoreLikeThis() {
-    return SizedBox(
-      height: 250.h,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.w).copyWith(bottom: 16.h), // مسافة إضافية من الأسفل
-            width: 150.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.grey[900],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius:  BorderRadius.only(
-                    topLeft: Radius.circular(12.r),
-                    topRight: Radius.circular(12.r),
-                  ),
-                  child: Image.asset(AssetsManager.crimeFilm,
-                    height: 150.h,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Padding(
-                  padding: REdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 16.sp,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            "7.7",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 60.w),
-                          InkWell(
-                              onTap: () {
-
-                              },
-                              child:
-                              const Icon(Icons.bookmark_border_outlined,color: Colors.white,))
-                        ],
-                      ),
-                      SizedBox(height: 4.h),
-
-                      Text(
-                        "Film Title",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 4.h),
-
-                      Text(
-                        "2018 R 1h 59m",
-                        style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 12.sp,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

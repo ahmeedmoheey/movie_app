@@ -5,6 +5,7 @@ import 'package:movie_app/core/colors_manager.dart';
 class AppTheme {
   static final ThemeData light = ThemeData(
     appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.white),
       centerTitle: true,
       titleTextStyle: AppStyles.browserCategories.copyWith(fontSize: 25),
       actionsIconTheme: IconThemeData(
