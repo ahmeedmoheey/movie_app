@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDU134xSRcPrREO36cUhea8-s2jyIl_xao',
-    appId: '1:651118685901:web:7af60090dcfe9204af8384',
-    messagingSenderId: '651118685901',
-    projectId: 'movie-app-a4cc6',
-    authDomain: 'movie-app-a4cc6.firebaseapp.com',
-    storageBucket: 'movie-app-a4cc6.firebasestorage.app',
-    measurementId: 'G-99N5FYTPN7',
+    apiKey: 'AIzaSyDxkz6Goj2jTcyzjlOaIsBkiZn9N14K0u4',
+    appId: '1:331230989768:web:9e52d0b9ad7a44b0b384fd',
+    messagingSenderId: '331230989768',
+    projectId: 'movie-app-e39c2',
+    authDomain: 'movie-app-e39c2.firebaseapp.com',
+    storageBucket: 'movie-app-e39c2.firebasestorage.app',
+    measurementId: 'G-6VGQZMNBJ6',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBPTH_qebGAAk3UN-4qSIxjbAM3I1o57rg',
-    appId: '1:651118685901:android:4b2c3197f981f94caf8384',
-    messagingSenderId: '651118685901',
-    projectId: 'movie-app-a4cc6',
-    storageBucket: 'movie-app-a4cc6.firebasestorage.app',
+    apiKey: 'AIzaSyDjR8al3ZqysXnxEcu-DnTD6R2J2zEUQIY',
+    appId: '1:331230989768:android:605caac9d79e284eb384fd',
+    messagingSenderId: '331230989768',
+    projectId: 'movie-app-e39c2',
+    storageBucket: 'movie-app-e39c2.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB4gX4Fo6F8jySJFm2geQvkiAsoLhl_NXs',
-    appId: '1:651118685901:ios:31bca7bef61edcccaf8384',
-    messagingSenderId: '651118685901',
-    projectId: 'movie-app-a4cc6',
-    storageBucket: 'movie-app-a4cc6.firebasestorage.app',
+    apiKey: 'AIzaSyDgh-VTDBHAvm3t9mOJgzfmdCejEAoJH3s',
+    appId: '1:331230989768:ios:24fe3f799ac736beb384fd',
+    messagingSenderId: '331230989768',
+    projectId: 'movie-app-e39c2',
+    storageBucket: 'movie-app-e39c2.firebasestorage.app',
     iosBundleId: 'com.example.movieApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB4gX4Fo6F8jySJFm2geQvkiAsoLhl_NXs',
-    appId: '1:651118685901:ios:31bca7bef61edcccaf8384',
-    messagingSenderId: '651118685901',
-    projectId: 'movie-app-a4cc6',
-    storageBucket: 'movie-app-a4cc6.firebasestorage.app',
+    apiKey: 'AIzaSyDgh-VTDBHAvm3t9mOJgzfmdCejEAoJH3s',
+    appId: '1:331230989768:ios:24fe3f799ac736beb384fd',
+    messagingSenderId: '331230989768',
+    projectId: 'movie-app-e39c2',
+    storageBucket: 'movie-app-e39c2.firebasestorage.app',
     iosBundleId: 'com.example.movieApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDU134xSRcPrREO36cUhea8-s2jyIl_xao',
-    appId: '1:651118685901:web:e46869ba2159c5ffaf8384',
-    messagingSenderId: '651118685901',
-    projectId: 'movie-app-a4cc6',
-    authDomain: 'movie-app-a4cc6.firebaseapp.com',
-    storageBucket: 'movie-app-a4cc6.firebasestorage.app',
-    measurementId: 'G-C9WBY60VFZ',
+    apiKey: 'AIzaSyDxkz6Goj2jTcyzjlOaIsBkiZn9N14K0u4',
+    appId: '1:331230989768:web:cf64b4261fdecc71b384fd',
+    messagingSenderId: '331230989768',
+    projectId: 'movie-app-e39c2',
+    authDomain: 'movie-app-e39c2.firebaseapp.com',
+    storageBucket: 'movie-app-e39c2.firebasestorage.app',
+    measurementId: 'G-TXE2LRD8CD',
   );
+
 }

@@ -84,7 +84,7 @@ class _SearchTabState extends State<SearchTab> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeDetails(movie: movie),
+                          builder: (context) => MovieDetails(movie: movie),
                         ),
                       );
                     },

@@ -37,7 +37,7 @@ class _NewReleasesState extends State<NewReleases> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeDetails(movie: movie),
+                    builder: (context) => MovieDetails(movie: movie),
                   ),
                 );
               },

@@ -79,7 +79,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
   Widget _buildMovieCard(Movie movie) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(movie: movie,),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails(movie: movie,),));
       },
       child: Container(
         decoration: BoxDecoration(

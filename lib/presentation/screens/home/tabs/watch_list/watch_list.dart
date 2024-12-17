@@ -50,7 +50,7 @@ class WatchList extends StatelessWidget {
                   },
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(movie: movieForDetails)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails(movie: movieForDetails)));
                 },
               );
             },

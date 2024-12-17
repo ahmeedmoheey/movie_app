@@ -17,7 +17,7 @@ class TopSlider extends StatelessWidget {
         final movie = snapshot.data[index];
         return InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(movie: movie,),));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails(movie: movie,),));
           },
           child: Container(
             width: double.infinity,

@@ -8,8 +8,8 @@ import 'package:movie_app/data/api/api_manager/api.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/widget/more_like_this.dart';
 import '../../../../../../data/api/model/movie.dart';
 
-class HomeDetails extends StatefulWidget {
-  const HomeDetails({
+class MovieDetails extends StatefulWidget {
+  const MovieDetails({
     super.key,
     this.movie,
   });
@@ -17,10 +17,10 @@ class HomeDetails extends StatefulWidget {
   final Movie? movie;
 
   @override
-  State<HomeDetails> createState() => _HomeDetailsState();
+  State<MovieDetails> createState() => _MovieDetailsState();
 }
 
-class _HomeDetailsState extends State<HomeDetails> {
+class _MovieDetailsState extends State<MovieDetails> {
   late Future<List<Movie>> similarMovies;
 
   @override

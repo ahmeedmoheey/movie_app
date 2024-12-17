@@ -36,7 +36,7 @@ class _RecommendedState extends State<Recommended> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomeDetails(movie: movie),
+                  builder: (context) => MovieDetails(movie: movie),
                 ),
               );
             },
