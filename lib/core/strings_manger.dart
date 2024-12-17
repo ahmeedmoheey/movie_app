@@ -18,4 +18,8 @@ class StringsManager {
   static const String thriller = 'Thriller';
   static const String war = 'War';
   static const String western = 'Western';
+  static const String home = 'HOME';
+  static const String search = 'SEARCH';
+  static const String  browser= 'BROWSE';
+  static const String watchList  = 'WATCHLIST';
 }

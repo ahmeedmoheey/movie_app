@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/assets_manager.dart';
+import 'package:movie_app/core/colors_manager.dart';
 import 'package:movie_app/core/constant_manager.dart';
 import 'package:movie_app/data/api/api_manager/api.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/widget/more_like_this.dart';
@@ -92,7 +93,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                       children: [
                         Text(
                           widget.movie?.title ?? 'No Title',
-                          style: TextStyle(
+                          style: const  TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -101,7 +102,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                         SizedBox(height: 8.h),
                         Text(
                           widget.movie?.releaseDate ?? 'No Release Date',
-                          style: TextStyle(
+                          style: const  TextStyle(
                             fontSize: 14,
                             color: Colors.white70,
                           ),
@@ -109,7 +110,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                         SizedBox(height: 16.h),
                         Text(
                           widget.movie?.overview ?? 'No Overview',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Colors.white70,
                           ),
@@ -121,14 +122,14 @@ class _HomeDetailsState extends State<HomeDetails> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                           const Icon(
                               Icons.star,
                               color: Colors.amber,
                             ),
-                            SizedBox(width: 4),
+                           const  SizedBox(width: 4),
                             Text(
                               '${widget.movie?.voteAverage.toStringAsFixed(1) ?? '0'}/10',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                               ),
@@ -166,15 +167,11 @@ class _HomeDetailsState extends State<HomeDetails> {
             // Rating Row
             SizedBox(height: 24.h),
             // More Like This Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: const Text(
+              Padding(
+              padding: const  EdgeInsets.symmetric(horizontal: 16.0),
+              child:  Text(
                 'More Like This',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: AppStyles.moreLikeThis
               ),
             ),
             SizedBox(height: 16.h),
@@ -183,7 +180,7 @@ class _HomeDetailsState extends State<HomeDetails> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(
-                    child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.white)),
+                    child: Text('Error: ${snapshot.error}', style:  TextStyle(color: ColorsManager.white)),
                   );
                 } else if (snapshot.hasData) {
                   return MoreLikeThis(snapshot: snapshot);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/colors_manager.dart';
+import 'package:movie_app/core/strings_manger.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_screen.dart';
-import 'package:movie_app/presentation/screens/home/tabs/search/SearchTab.dart';
+import 'package:movie_app/presentation/screens/home/tabs/search/search_tab.dart';
 import 'package:movie_app/presentation/screens/home/tabs/watch_list/watch_list.dart';
 import 'tabs/Browse/browse.dart';
 
@@ -17,7 +18,7 @@ class _HomeState extends State<Home> {
     HomeScreen(),
     SearchTab(),
     Browse(),
-    WatchList(),
+      WatchList(),
   ];
   int selectedIndex = 0;
 
@@ -44,22 +45,22 @@ class _HomeState extends State<Home> {
           },
           currentIndex: selectedIndex,
 
-          items: [
+          items:   [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'HOME',
+              label: StringsManager.home,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
-              label: 'SEARCH',
+              label: StringsManager.search,
             ),
-            BottomNavigationBarItem(
+             BottomNavigationBarItem(
               icon: Icon(Icons.movie),
-              label: 'BROWSE',
+              label: StringsManager.browser,
             ),
-            BottomNavigationBarItem(
+             BottomNavigationBarItem(
               icon: Icon(Icons.book),
-              label: 'WATCHLIST',
+              label: StringsManager.watchList,
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/config/app_styles/app_styles.dart';
 
 import '../../../../../../core/constant_manager.dart';
 import '../../../../../../data_model/firebase/firebase.dart';
@@ -76,11 +77,7 @@ class _RecommendedState extends State<Recommended> {
                             SizedBox(width: 2.w),
                             Text(
                               "${movie.voteAverage.toStringAsFixed(1)}/10",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppStyles.vote
                             ),
                             SizedBox(width: 40.w),
                             InkWell(
@@ -102,11 +99,7 @@ class _RecommendedState extends State<Recommended> {
                         SizedBox(height: 4.h),
                         Text(
                           movie.title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppStyles.movieTitle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

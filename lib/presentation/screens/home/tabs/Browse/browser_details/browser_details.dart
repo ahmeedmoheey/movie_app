@@ -41,7 +41,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
           future: _movies,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return  const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(
                   child: Text(
@@ -49,7 +49,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                   )
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(
+              return  const Center(
                 child: Text(
                   'No movies found',
                 ),
@@ -94,7 +94,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                 child: Image.network(
                   '${ConstantManager.imagePath}${movie.posterPath}',
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+                  errorBuilder: (context, error, stackTrace) =>  const Icon(Icons.error),
                 ),
               ),
               Padding(

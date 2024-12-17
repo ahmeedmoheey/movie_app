@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/routes_manager.dart';
 import 'package:movie_app/data/api/api_manager/api.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
@@ -34,8 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 50.h),
-
+             SizedBox(height: 50.h),
              FutureBuilder(
                 future: popularMovies,
                 builder: (context, snapshot) {
@@ -50,22 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-
-
-
             SizedBox(height: 30.h),
-
-            //  New Releases
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Text('New Releases',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold)),
+                  style:AppStyles.newRelease),
             ),
             SizedBox(height: 20.h),
-
             FutureBuilder(
                 future: newReleasesMovies,
                 builder: (context, snapshot) {
@@ -80,16 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-
             SizedBox(height: 30.h),
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Text('Recommended',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold)),
+                  style:AppStyles.recommandes),
             ),
             SizedBox(height: 20.h),
             FutureBuilder(

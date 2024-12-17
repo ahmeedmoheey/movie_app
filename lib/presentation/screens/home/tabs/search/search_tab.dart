@@ -47,11 +47,11 @@ class _SearchTabState extends State<SearchTab> {
           children: [
             TextField(
               controller: _controller,
-              onChanged: (text) => _searchMovies(text), // يتم البحث عند تغيير النص
+              onChanged: (text) => _searchMovies(text),
               decoration: InputDecoration(
                 hintText: 'Search',
-                hintStyle: TextStyle(color: Colors.white30),
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
+                hintStyle: const TextStyle(color: Colors.white30),
+                prefixIcon:  const Icon(Icons.search, color: Colors.grey),
                 filled: true,
                 fillColor: ColorsManager.searchBar,
                 border: OutlineInputBorder(
@@ -59,15 +59,15 @@ class _SearchTabState extends State<SearchTab> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0.r),
-                  borderSide: BorderSide(color: Colors.white70),
+                  borderSide:  const BorderSide(color: Colors.white70),
                 ),
               ),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             SizedBox(height: 20.h),
             Expanded(
               child: _isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ?const  Center(child: CircularProgressIndicator())
                   : _searchResults.isEmpty
                   ? Center(
                 child: Image.asset(
@@ -96,16 +96,16 @@ class _SearchTabState extends State<SearchTab> {
                         fit: BoxFit.cover,
                         width: 50,
                       )
-                          : Icon(Icons.image_not_supported),
-                      title: Text(movie.title, style: TextStyle(color: Colors.white)),
-                      subtitle: Text(movie.releaseDate, style: TextStyle(color: Colors.grey)),
+                          :const  Icon(Icons.image_not_supported),
+                      title: Text(movie.title, style:const TextStyle(color: Colors.white)),
+                      subtitle: Text(movie.releaseDate, style: const TextStyle(color: Colors.grey)),
                     ),
                   );
                 },
                 separatorBuilder: (context, index) {
                   return Divider(
-                    color: Colors.white30, // تغيير اللون إذا لزم الأمر
-                    height: 10.h, // يمكن تغيير المسافة بين العناصر
+                    color: Colors.white30,
+                    height: 10.h,
                   );
                 },
               ),

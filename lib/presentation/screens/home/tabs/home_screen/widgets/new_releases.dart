@@ -16,7 +16,6 @@ class NewReleases extends StatefulWidget {
 }
 
 class _NewReleasesState extends State<NewReleases> {
-  // خريطة لتخزين حالة الحفظ لكل فيلم باستخدام معرّف الفيلم
   Map<String, bool> savedMovies = {};
 
   @override
@@ -29,7 +28,6 @@ class _NewReleasesState extends State<NewReleases> {
         itemBuilder: (context, index) {
           final movie = widget.snapshot.data[index];
 
-          // الحصول على حالة الحفظ للفيلم الحالي
           bool isSaved = savedMovies[movie.id.toString()] ?? false;
 
           return Container(
@@ -63,7 +61,6 @@ class _NewReleasesState extends State<NewReleases> {
                       IconButton(
                         onPressed: () {
                           setState(() {
-                            // تحديث حالة الحفظ فقط لهذا الفيلم
                             savedMovies[movie.id.toString()] = !isSaved;
                           });
                           addMovieToFireStore(movie);

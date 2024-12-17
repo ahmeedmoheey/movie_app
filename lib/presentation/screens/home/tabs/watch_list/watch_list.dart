@@ -5,13 +5,12 @@ import 'package:movie_app/core/assets_manager.dart';
 import 'package:movie_app/core/routes_manager.dart';
 import 'package:movie_app/data/api/model/movie.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
-
 import '../../../../../../core/constant_manager.dart';
 import '../../../../../../data_model/firebase/firebase.dart';
+import '../../../../../data/api/api_manager/api.dart';
 
 class WatchList extends StatelessWidget {
-  const WatchList({super.key});
-
+ const  WatchList({super.key ,});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +52,7 @@ class WatchList extends StatelessWidget {
 
                 ),
                 onTap: () {
+
                 },
 
               );
@@ -62,7 +62,6 @@ class WatchList extends StatelessWidget {
       ),
     );
   }
-
   void deleteMovieFromWatchlist(String movieId) async {
     try {
       await FirebaseFirestore.instance.collection('watchlist').doc(movieId).delete();

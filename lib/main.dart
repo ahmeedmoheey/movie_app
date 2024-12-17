@@ -8,6 +8,6 @@ void main () async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseFirestore.instance.enableNetwork();
+  await FirebaseFirestore.instance.disableNetwork();
   runApp( MyApp());
 }
