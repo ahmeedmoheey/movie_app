@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/routes_manager.dart';
 import 'package:movie_app/data/api/api_manager/api.dart';
-import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/movie_details.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/widgets/new_releases.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/widgets/recommended.dart';
 import 'package:movie_app/presentation/screens/home/tabs/home_screen/widgets/top_slider.dart';

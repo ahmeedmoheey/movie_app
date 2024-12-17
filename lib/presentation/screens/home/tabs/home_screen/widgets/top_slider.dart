@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/constant_manager.dart';
-import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/movie_details.dart';
 
 class TopSlider extends StatelessWidget {
   const TopSlider({super.key, required this.snapshot});

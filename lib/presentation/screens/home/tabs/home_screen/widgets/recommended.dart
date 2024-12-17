@@ -5,7 +5,7 @@ import 'package:movie_app/config/app_styles/app_styles.dart';
 
 import '../../../../../../core/constant_manager.dart';
 import '../../../../../../data_model/firebase/firebase.dart';
-import '../home_details/home_details.dart';
+import '../home_details/movie_details.dart';
 
 class Recommended extends StatefulWidget {
   const Recommended({super.key, required this.snapshot});
@@ -76,8 +76,8 @@ class _RecommendedState extends State<Recommended> {
                             ),
                             SizedBox(width: 2.w),
                             Text(
-                              "${movie.voteAverage.toStringAsFixed(1)}/10",
-                              style: AppStyles.vote
+                                "${movie.voteAverage.toStringAsFixed(1)}/10",
+                                style: AppStyles.vote
                             ),
                             SizedBox(width: 40.w),
                             InkWell(
@@ -125,7 +125,7 @@ class _RecommendedState extends State<Recommended> {
     );
   }
 
-  Future<void> addMovieToFireStore(dynamic movie) async {
+   addMovieToFireStore(dynamic movie) async {
     try {
       CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('watchlist');
@@ -133,22 +133,18 @@ class _RecommendedState extends State<Recommended> {
       DocumentReference documentReference =
       collectionReference.doc(movie.id.toString());
 
-      DocumentSnapshot documentSnapshot = await documentReference.get();
-      if (!documentSnapshot.exists) {
-        MoviesDM movieDM = MoviesDM(
-          id: movie.id.toString(),
-          title: movie.title ?? 'Unknown Title',
-          posterPath: movie.posterPath ?? '',
-          releaseDate: movie.releaseDate?.toString() ?? 'Unknown Date',
-          voteAverage: movie.voteAverage?.toDouble() ?? 0.0,
-          isDone: false,
-        );
+      MoviesDM movieDM = MoviesDM(
+        id: movie.id.toString(),
+        title: movie.title,
+        posterPath: movie.posterPath,
+        releaseDate: movie.releaseDate,
+        voteAverage: movie.voteAverage,
+        isDone: false,
+      );
 
-        await documentReference.set(movieDM.toFireStore());
-        debugPrint("Movie added to watchlist successfully.");
-      } else {
-        debugPrint("Movie already in watchlist.");
-      }
+      await documentReference.set(movieDM.toFireStore());
+
+      debugPrint("Movie added to watchlist successfully.");
     } catch (error) {
       debugPrint("Failed to add movie to watchlist: $error");
     }

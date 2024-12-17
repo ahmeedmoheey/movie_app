@@ -1,3 +1,5 @@
+import '../../data/api/model/movie.dart';
+
 class MoviesDM {
   final String id;
   final String title;
@@ -35,5 +37,19 @@ class MoviesDM {
       'voteAverage': voteAverage,
       'isDone': isDone,
     };
+  }
+
+  Movie toMovie() {
+    return Movie(
+      backdropPath: posterPath,
+      originalLanguage: 'en',
+      originalTitle: title,
+      overview: 'Overview not available',
+      posterPath: posterPath,
+      releaseDate: releaseDate,
+      title: title,
+      voteAverage: voteAverage,
+      id: int.parse(id),
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/movie_details.dart';
 
 import '../../../../../../core/constant_manager.dart';
 import '../../../../../../data_model/firebase/firebase.dart';

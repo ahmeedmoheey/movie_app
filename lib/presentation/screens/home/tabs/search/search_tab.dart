@@ -4,7 +4,7 @@ import 'package:movie_app/core/assets_manager.dart';
 import 'package:movie_app/core/colors_manager.dart';
 import 'package:movie_app/core/constant_manager.dart';
 import 'package:movie_app/data/api/api_manager/api.dart';
-import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
+import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/movie_details.dart';
 import '../../../../../data/api/model/movie.dart';
 
 class SearchTab extends StatefulWidget {

@@ -2,21 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/config/app_styles/app_styles.dart';
 import 'package:movie_app/core/assets_manager.dart';
-import 'package:movie_app/core/routes_manager.dart';
-import 'package:movie_app/data/api/model/movie.dart';
-import 'package:movie_app/presentation/screens/home/tabs/home_screen/home_details/home_details.dart';
+import '../home_screen/home_details/movie_details.dart';
 import '../../../../../../core/constant_manager.dart';
 import '../../../../../../data_model/firebase/firebase.dart';
-import '../../../../../data/api/api_manager/api.dart';
 
 class WatchList extends StatelessWidget {
- const  WatchList({super.key ,});
+  const  WatchList({super.key ,});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const  Text('Watchlist'),
-        backgroundColor: Colors.black,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('watchlist').snapshots(),
@@ -34,6 +31,8 @@ class WatchList extends StatelessWidget {
             itemBuilder: (context, index) {
               var movieData = movies[index].data() as Map<String, dynamic>;
               var movie = MoviesDM.fromFireStore(movieData);
+              var movieForDetails = movie.toMovie();
+
               return ListTile(
                 contentPadding: const  EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 leading: Image.network(
@@ -42,19 +41,17 @@ class WatchList extends StatelessWidget {
                   width: 140,
                   height: 89,
                 ),
-                title: Text(movie.title,style: AppStyles.filmWatchListTitle.copyWith(fontSize: 15)),
-                subtitle: Text('Released: ${movie.releaseDate}',style: AppStyles.filmWatchListDescription.copyWith(fontSize: 13),),
+                title: Text(movie.title, style: AppStyles.filmWatchListTitle.copyWith(fontSize: 15)),
+                subtitle: Text('Released: ${movie.releaseDate}', style: AppStyles.filmWatchListDescription.copyWith(fontSize: 13)),
                 trailing: IconButton(
-                  icon:   const Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: () {
                     deleteMovieFromWatchlist(movie.id);
                   },
-
                 ),
                 onTap: () {
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDetails(movie: movieForDetails)));
                 },
-
               );
             },
           );
@@ -62,6 +59,7 @@ class WatchList extends StatelessWidget {
       ),
     );
   }
+
   void deleteMovieFromWatchlist(String movieId) async {
     try {
       await FirebaseFirestore.instance.collection('watchlist').doc(movieId).delete();
